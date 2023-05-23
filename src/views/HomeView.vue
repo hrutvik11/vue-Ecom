@@ -7,41 +7,15 @@
       />
     </div>
     <div class="h-full flex-1 p-4">
-      <div
-        v-if="activeCategory !== null && !isProductListVisible"
-        class="h-full"
-      >
-        <p class="text-left text-[32px] font-semibold">
-          {{ activeCategory === 6 ? "ALL CATEGORIES" : "SUB CATEGORIES" }}
-        </p>
-        <div class="flex flex-wrap gap-4">
-          <CategoryCardComp
-            :activeCategory="activeCategory"
-            @setActiveSubCategory="setActiveSubCategory"
-          />
-        </div>
-      </div>
-
-      <div
-        v-if="
-          activeCategory !== null &&
-          isProductListVisible &&
-          activeSubCategory !== null
-        "
-        class="h-full"
-      >
-        <p class="text-left text-[32px] font-semibold">PRODUCTS</p>
-        <div class="flex flex-wrap gap-4">
-          <ProductCardComp
-            :activeSubCategory="activeSubCategory"
-            @onproductclick="onProductClick"
-          />
-        </div>
-      </div>
-
-      <div class="h-full" v-if="isProductDetailsVisible">
-        <ProductDetailsComp :productID="productID" />
-      </div>
+      <component
+        :is="ActiveComponent"
+        :activeCategory="activeCategory"
+        @setActiveSubCategory="setActiveSubCategory"
+        :activeSubCategory="activeSubCategory"
+        @onproductclick="onProductClick"
+        :productID="productID"
+        ref="thisismyref"
+      ></component>
     </div>
   </div>
   <div class="bg-[#E6E6E6] h-[50vh] overflow-y-auto w-full px-4">
@@ -78,26 +52,37 @@ export default {
 
       isProductDetailsVisible: false,
       productID: null,
+
+      ActiveComponent: "",
     };
   },
   methods: {
     setActiveCategory(id) {
       this.activeCategory = id;
+      this.ActiveComponent = "CategoryCardComp";
+      this.resetData();
+    },
+    setActiveSubCategory(sudID) {
+      this.activeSubCategory = sudID;
+      this.ActiveComponent = "ProductCardComp";
+    },
+    onProductClick(prodID) {
+      this.ActiveComponent = "ProductDetailsComp";
+
+      this.productID = prodID;
+      this.activeSubCategory = null;
+      this.activeCategory = null;
+
+      // if (this.$refs.thisismyref) {
+      //   console.log(this.$refs.thisismyref);
+      //   this.$refs.thisismyref.updateData();
+      // }
+    },
+    resetData() {
       this.isProductListVisible = false;
       this.activeSubCategory = null;
       this.isProductDetailsVisible = false;
       this.productID = null;
-    },
-    setActiveSubCategory(sudID) {
-      this.activeSubCategory = sudID;
-      this.isProductListVisible = true;
-    },
-    onProductClick(prodID) {
-      this.isProductDetailsVisible = true;
-      this.productID = prodID;
-      this.isProductListVisible = false;
-      this.activeSubCategory = null;
-      this.activeCategory = null;
     },
   },
 };

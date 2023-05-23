@@ -8,9 +8,6 @@ import DrawerComp from "./DrawerComp.vue";
 export default {
   components: { DrawerComp },
   props: ["iscartOpen", "closeDrawer"],
-  // computed: {
-  //   getCartProducts() {},
-  // },
 };
 </script>
 <style></style>

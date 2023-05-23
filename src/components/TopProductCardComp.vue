@@ -1,6 +1,5 @@
 <template>
-  <div
-    class="border border-gray-300 w-[260px] cursor-pointer bg-white"
+  <cardComp
     v-for="product in trendingList"
     :key="product.id"
     @click="onProductClick(product.id)"
@@ -13,12 +12,15 @@
       <div class="text-[#959595] text-[12px] mt-1">{{ product.desc }}</div>
       <span class="text-[18px] font-semibold">${{ product.price }}</span>
     </div>
-  </div>
+  </cardComp>
 </template>
 <script>
 import { subCategories } from "@/utils/constants";
+import cardComp from "./cardComp.vue";
 
 export default {
+  emits: ["onproductclicks"],
+  components: { cardComp },
   data() {
     return {
       trendingList: null,

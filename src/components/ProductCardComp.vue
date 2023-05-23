@@ -1,5 +1,5 @@
 <template>
-  <div
+  <cardComp
     class="h-fit border border-[#E6E6E6] w-[260px] cursor-pointer"
     v-for="products in productsList"
     :key="products.id"
@@ -21,13 +21,17 @@
         </button>
       </div>
     </div>
-  </div>
+  </cardComp>
 </template>
 <script>
 import { subCategories } from "@/utils/constants";
 import { AddToCart, isProductInCart } from "@/utils/helpers";
+import cardComp from "./cardComp.vue";
+
 export default {
   props: ["activeSubCategory"],
+  components: { cardComp },
+  emits: ["onproductclick"],
   data() {
     return {
       productsList: null,

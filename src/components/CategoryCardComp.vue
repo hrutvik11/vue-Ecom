@@ -1,6 +1,6 @@
 <template>
   <div v-if="activeCategory !== 6" class="flex flex-wrap gap-4">
-    <div
+    <cardComp
       class="h-[260px] border border-[#E6E6E6] w-[260px] cursor-pointer"
       v-for="category in filteredSubCategoryData"
       :key="category.id"
@@ -10,7 +10,7 @@
         <img :src="category.img" class="h-full w-full object-contain" />
       </div>
       <div class="mt-3 text-[#05A64A] text-center">{{ category.name }}</div>
-    </div>
+    </cardComp>
   </div>
   <div v-else>
     <p
@@ -25,9 +25,12 @@
 </template>
 <script>
 import { subCategories } from "@/utils/constants";
+import cardComp from "./cardComp.vue";
 
 export default {
   props: ["activeCategory"],
+  components: { cardComp },
+  emits: ["setActiveSubCategory"],
   watch: {
     activeCategory() {
       this.updateCategoryCards();

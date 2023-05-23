@@ -17,6 +17,7 @@
 import { categories } from "@/utils/constants";
 export default {
   props: ["activeCategory"],
+  emits: ["setActiveCategory"],
   data() {
     return {
       tempCategories: categories,
