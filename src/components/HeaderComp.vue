@@ -1,5 +1,5 @@
 <template>
-  <DrawerComp :isDrawerOpen="iscartOpen" :closeDrawer="closeDrawer" />
+  <CartDrawerComp :isDrawerOpen="iscartOpen" :closeDrawer="closeDrawer" />
 
   <header
     class="bg-[#515150] text-white h-[80px] flex items-center justify-center"
@@ -25,10 +25,11 @@
   </header>
 </template>
 <script>
-import DrawerComp from "./DrawerComp.vue";
+import CartDrawerComp from "./CartDrawerComp.vue";
+
 export default {
   components: {
-    DrawerComp,
+    CartDrawerComp,
   },
   data() {
     return {

@@ -13,13 +13,19 @@
       <div class="text-[#959595] text-[12px] mt-1">{{ products.desc }}</div>
       <div class="mt-1 flex justify-between py-2 items-center px-2">
         <span class="text-[18px] font-semibold">${{ products.price }}</span>
-        <button>Add to cart</button>
+        <button
+          @click.stop="AddtoCart(products.id)"
+          :disabled="isAddedInCart(products.id)"
+        >
+          Add to cart
+        </button>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { subCategories } from "@/helpers/constants";
+import { subCategories } from "@/utils/constants";
+import { AddToCart, isProductInCart } from "@/utils/helpers";
 export default {
   props: ["activeSubCategory"],
   data() {
@@ -28,17 +34,27 @@ export default {
     };
   },
   mounted() {
-    const productsData = [...subCategories].find(
-      (el) => el.id === this.activeSubCategory
-    );
-
-    if (productsData.products && productsData.products.length > 0) {
-      this.productsList = productsData.products;
-    }
+    this.fetchProducts();
   },
   methods: {
     onProductClick(productID) {
       this.$emit("onproductclick", productID);
+    },
+    AddtoCart(productID) {
+      AddToCart(productID);
+      this.fetchProducts();
+    },
+    isAddedInCart(productID) {
+      return isProductInCart(productID);
+    },
+    fetchProducts() {
+      const productsData = [...subCategories].find(
+        (el) => el.id === this.activeSubCategory
+      );
+
+      if (productsData.products && productsData.products.length > 0) {
+        this.productsList = productsData.products;
+      }
     },
   },
 };

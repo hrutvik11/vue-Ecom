@@ -14,7 +14,7 @@
   </div>
 </template>
 <script>
-import { categories } from "@/helpers/constants";
+import { categories } from "@/utils/constants";
 export default {
   props: ["activeCategory"],
   data() {

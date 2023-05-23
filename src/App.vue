@@ -33,4 +33,8 @@ button {
   padding: 5px 10px 5px 10px;
   border-radius: 7px;
 }
+
+button:disabled {
+  background-color: #888888;
+}
 </style>
