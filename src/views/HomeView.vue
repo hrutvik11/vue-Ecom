@@ -48,12 +48,8 @@ export default {
     return {
       activeCategory: null,
       activeSubCategory: null,
-      isProductListVisible: false,
-
-      isProductDetailsVisible: false,
       productID: null,
-
-      ActiveComponent: "",
+      ActiveComponent: null,
     };
   },
   methods: {
@@ -68,7 +64,6 @@ export default {
     },
     onProductClick(prodID) {
       this.ActiveComponent = "ProductDetailsComp";
-
       this.productID = prodID;
       this.activeSubCategory = null;
       this.activeCategory = null;
@@ -79,9 +74,7 @@ export default {
       // }
     },
     resetData() {
-      this.isProductListVisible = false;
       this.activeSubCategory = null;
-      this.isProductDetailsVisible = false;
       this.productID = null;
     },
   },
